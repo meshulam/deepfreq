@@ -1,0 +1,8 @@
+---
+- name: install git
+  become: true
+  yum: name={{ item }} state=installed
+  with_items:
+      - git
+      - python
+

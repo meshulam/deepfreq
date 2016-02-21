@@ -1,0 +1,19 @@
+---
+- name: Provision our EC2 instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - ec2:
+         key_name: Meshbook
+         group: web-server
+         instance_type: c3.large
+         region: us-east-1
+         image: ami-2051294a
+         wait: true
+         exact_count: 1
+         count_tag:
+            group: deepfreq1
+         instance_tags:
+            group: deepfreq1
+      register: ec2

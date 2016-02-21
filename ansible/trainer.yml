@@ -1,0 +1,8 @@
+---
+- name: DeepFreq deploy
+  hosts: tag_group_deepfreq1
+  remote_user: ec2-user
+  gather_facts: true
+
+  roles:
+      - trainer
