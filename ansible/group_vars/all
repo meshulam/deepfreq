@@ -1,6 +1,11 @@
 ---
-trainer_git_repo: https://github.com/MattVitelli/GRUV.git
-source_data_urls:
-  - https://archive.org/download/OTR_Sherlock_Holmes_smurfmeat/Shoscombe_Old_Place_1948_64kb.mp3
-  - https://archive.org/download/OTR_Sherlock_Holmes_smurfmeat/The_Bleeding_Chandelier_1948_64kb.mp3
+gpu: True
+cuda_restart_node_on_install: False
+cuda_packages:
+ - "cuda"
+cuda_root: /usr/local/cuda
+app_repo: https://github.com/meshulam/GRUV.git
+source_data_url: https://s3.amazonaws.com/meshulam-web-content/2016/audio.tar.gz
+home_dir: /usr/local/rnn
+
 

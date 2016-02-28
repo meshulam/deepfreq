@@ -1,0 +1,24 @@
+export CUDA_ROOT=/usr/local/cuda
+export THEANO_FLAGS='cuda.root=/usr/local/cuda,device=gpu,floatX=float32,force_device=True'
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+
+# Installing nv driver
+sudo ./nvidia-installer -a --kernel-source-path=/usr/src/kernels/3.10.0-327.10.1.el7.x86_64
+
+
+
+# Performance on AWS GPUs
+
+InputD, modelDims,  Batch,  GPUMem, epoch length
+11024,  1024,       64,     761,    14
+11024,  1024,       128,    1106,   10
+11024,  1024,       512,    2330,   9
+
+11024,  2048,       32,     1401,   53
+11024,  2048,       64,     1639,   37
+11024,  2048,       128,    2114,   20
+11024,  2048,       256,    3065,   19
+
+11024,  4096: (GPU?) OOM on model compile
+
+

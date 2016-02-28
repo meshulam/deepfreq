@@ -1,8 +1,33 @@
 ---
-- name: install git
+- name: install RPMs
   become: true
   yum: name={{ item }} state=installed
   with_items:
+      - gcc
+      - gcc-c++
       - git
       - python
+      - numpy
+      - scipy
+      - python-devel
+      - python-pip
+      - hdf5-devel
+- name: add app user
+  user: name=trainer shell=/usr/sbin/nologin home={{ home_dir }}
+- name: clone app repo
+  git: repo={{ app_repo }}
+       dest={{ home_dir }}/app
+  become_user: trainer
+- name: install python dependencies
+  pip: requirements={{ home_dir }}/app/requirements.txt
+- name: create data dir
+  file: path={{ home_dir }}/app/datasets/wav
+        state=directory
+        recurse=yes
+        owner=trainer
+- name: download and unpack corpus data
+  unarchive: src={{ source_data_url }}
+      dest={{ home_dir }}/app/datasets/wav
+      copy=no
+      owner=trainer
 

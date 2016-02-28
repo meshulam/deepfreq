@@ -6,14 +6,24 @@
   tasks:
     - ec2:
          key_name: Meshbook
-         group: web-server
-         instance_type: c3.large
+         group: web-server2
+         instance_type: g2.2xlarge
+         #instance_type: c3.large
          region: us-east-1
          image: ami-2051294a
          wait: true
          exact_count: 1
+         vpc_subnet_id: subnet-aa882cf2
          count_tag:
             group: deepfreq1
          instance_tags:
             group: deepfreq1
       register: ec2
+- name: Stop and request a re-run if any instances were launched
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Stop if instances were launched
+      fail: msg="Re-run the playbook to load group variables from EC2 dynamic inventory for the just launched instances!"
+      when: ec2.changed
+
